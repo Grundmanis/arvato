@@ -1,3 +1,16 @@
+Backend
+PHP CS FIXER:
+To check the code:
+lando php ./vendor/bin/php-cs-fixer check
+
+To fix the code:
+lando php ./vendor/bin/php-cs-fixer fix
+
+Static analysis / type checking:
+lando php vendor/bin/phpstan analyse src --level 5
+
+ 
+
 Your task is to create a product detail page for our online product shop based on the provided
 design. In addition to showcasing detailed product information, the page must enable users to
 switch between table and grid views for certain product information and apply filters to the
@@ -76,5 +89,4 @@ CHECK DONE - ● Linting + formatting
 NOT DONE - tests
 ● NOT DONE - Deliverables
 ● NOT DONE - Deployed front end project, that can be firstly seen by persons without possibility to 
-● NOT DONE - Access to repository where project is hosted.
-NOT DONE - Create a public Git repository, commit your code there and share a link.
+NOT DONE - pre-commit checks

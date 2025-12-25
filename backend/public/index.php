@@ -3,7 +3,7 @@
 use App\Kernel;
 use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
 
-require_once dirname(__DIR__) . '/vendor/autoload_runtime.php';
+require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
 return function (array $context) {
     $kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']);

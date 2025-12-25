@@ -10,7 +10,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 final class ProductAdmin extends AbstractAdmin
 {
@@ -42,7 +41,7 @@ final class ProductAdmin extends AbstractAdmin
             ])
             ->add('quantity', null, [
                 'label' => 'product.field.quantity',
-            ]);;
+            ]);
     }
 
     protected function configureListFields(ListMapper $list): void
@@ -113,20 +112,19 @@ final class ProductAdmin extends AbstractAdmin
             ->add('quantity', null, [
                 'label' => 'product.field.quantity',
             ]);
-            // ->add('name')
-            // ->add('category')
-            // ->add('price', NumberType::class, [
-            //     'label' => 'Price',
-            //     'scale' => 2,
-            //     'html5' => true,
-            //     'required' => true,
-            // ])
-            // ->add('quantity')
-            // ->add('publicId', null, [
-            //     'label' => 'product.public_id',
-            //     'disabled' => true,
-            // ])
-        ;
+        // ->add('name')
+        // ->add('category')
+        // ->add('price', NumberType::class, [
+        //     'label' => 'Price',
+        //     'scale' => 2,
+        //     'html5' => true,
+        //     'required' => true,
+        // ])
+        // ->add('quantity')
+        // ->add('publicId', null, [
+        //     'label' => 'product.public_id',
+        //     'disabled' => true,
+        // ])
     }
 
     protected function configureShowFields(ShowMapper $show): void

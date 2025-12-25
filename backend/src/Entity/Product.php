@@ -3,12 +3,12 @@
 namespace App\Entity;
 
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-use App\Repository\ProductRepository;
-use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 // TODO: add apiResource for filtelrs
@@ -16,7 +16,7 @@ use Symfony\Component\Uid\Uuid;
     cacheHeaders: [
         'max_age' => 3600,        // cache in browser
         'shared_max_age' => 3600, // cache for reverse proxy
-        'vary' => ['Authorization'] // vary cache based on Authorization header
+        'vary' => ['Authorization'], // vary cache based on Authorization header
     ]
 )]
 #[ApiFilter(SearchFilter::class, properties: [
@@ -53,6 +53,9 @@ class Product
     #[ORM\Column(type: 'datetime')]
     private \DateTime $updatedAt;
 
+    /**
+     * @var Collection<int, ProductReview>
+     */
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductReview::class, orphanRemoval: true)]
     private Collection $reviews;
 
@@ -86,7 +89,8 @@ class Product
             return 0;
         }
 
-        $total = array_sum($this->reviews->map(fn($r) => $r->getRating())->toArray());
+        $total = array_sum($this->reviews->map(fn ($r) => $r->getRating())->toArray());
+
         return round($total / $this->reviews->count(), 2);
     }
 
@@ -116,12 +120,12 @@ class Product
 
     public function getPrice(): ?float
     {
-        return $this->price;
+        return null !== $this->price ? (float) $this->price : null;
     }
 
-    public function setPrice(float $price): static
+    public function setPrice(?float $price): self
     {
-        $this->price = $price;
+        $this->price = null !== $price ? (string) $price : null;
 
         return $this;
     }

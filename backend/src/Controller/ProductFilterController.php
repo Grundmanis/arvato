@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Attribute\Route;
 
 final class ProductFilterController extends AbstractController
 {
@@ -20,7 +20,7 @@ final class ProductFilterController extends AbstractController
             ->getQuery()
             ->getScalarResult();
 
-        $categories = array_map(fn($row) => $row['category'], $categories);
+        $categories = array_map(fn ($row) => $row['category'], $categories);
 
         // Build the JSON response
         $response = new JsonResponse($categories);
@@ -49,7 +49,7 @@ final class ProductFilterController extends AbstractController
             ->getQuery()
             ->getScalarResult();
 
-        $names = array_map(fn($row) => $row['name'], $names);
+        $names = array_map(fn ($row) => $row['name'], $names);
 
         // Build the JSON response
         $response = new JsonResponse($names);

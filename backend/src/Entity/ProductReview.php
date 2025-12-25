@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductReviewRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Metadata\ApiResource;
 
 #[ApiResource(
     cacheHeaders: [
         'max_age' => 3600,        // cache in browser
         'shared_max_age' => 3600, // cache for reverse proxy
-        'vary' => ['Authorization'] // vary cache based on Authorization header
+        'vary' => ['Authorization'], // vary cache based on Authorization header
     ]
 )]
 #[ORM\Entity(repositoryClass: ProductReviewRepository::class)]
@@ -27,9 +27,8 @@ class ProductReview
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Product $product;
 
-    // TODO: number, not float, min and max
     #[ORM\Column]
-    private ?float $rating = null;
+    private ?int $rating = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $comment = null;
@@ -66,6 +65,7 @@ class ProductReview
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
+
         return $this;
     }
 

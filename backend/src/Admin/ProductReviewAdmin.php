@@ -52,7 +52,7 @@ final class ProductReviewAdmin extends AbstractAdmin
 
     protected function configureFormFields(FormMapper $form): void
     {
-        $isEdit = $this->getSubject() && $this->getSubject()->getId();
+        $isEdit = null !== $this->getSubject()->getId();
         $form
             ->add('product', ModelType::class, [
                 'label' => 'product_review.product',
