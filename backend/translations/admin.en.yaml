@@ -1,0 +1,11 @@
+product:
+  field:
+    id: ID
+    name: Name
+    category: Category
+    price: Price
+    in_stock: In stock
+    quantity: Quantity
+    public_id: Public ID
+    created_at: Created at
+    updated_at: Updated at

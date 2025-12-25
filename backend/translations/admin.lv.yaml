@@ -1,0 +1,11 @@
+product:
+  field:
+    id: ID
+    name: Nosaukums
+    category: Kategorija
+    price: Cena
+    in_stock: Noliktavā
+    quantity: Daudzums
+    public_id: Publiskais ID
+    created_at: Izveidots
+    updated_at: Atjaunināts

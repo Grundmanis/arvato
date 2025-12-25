@@ -1,0 +1,57 @@
+name: arvato
+recipe: symfony
+config:
+  webroot: backend/public
+services:
+  database:
+    type: mysql:8.0
+    creds:
+      user: symfony
+      password: symfony
+      database: symfony
+# services:
+#   nodeservice:
+#     type: node:24
+#     command: "npm run dev"
+#     environment:
+#       PORT: 3000
+
+# proxy:
+#   nodeservice:
+#     - node.lndo.site:3000
+# tooling:
+#   node:
+#     service: nodeservice
+
+
+
+
+
+# services:
+#   nodeservice:
+#     type: node:24
+#     build:
+#       - npm install
+#       - npm run build
+#     command: npm start
+#     ports:
+#     - 3000
+# tooling:
+#   node:
+#     service: nodeservice
+
+# tooling:
+#   frontend:
+#     service: node
+#     description: "Next.js dev server"
+#     cmd: "cd frontend && npm install && npm run dev"
+
+#   frontend-build:
+#     service: node
+#     description: "Next.js production build"
+#     cmd: "cd frontend && npm run build"
+
+#   frontend-start:
+#     service: node
+#     description: "Next.js start server (production)"
+#     cmd: "cd frontend && npm run start"
