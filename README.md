@@ -133,3 +133,4 @@ why 2 different types?
 
         image upload in admin
         show image in product show
+        sort and filters to next URL 

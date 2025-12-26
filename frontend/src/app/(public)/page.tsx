@@ -100,7 +100,7 @@ export default function Home() {
         <Dropdown
           options={perPages}
           size="small"
-          onSelect={(value) => setPerPage(value)}
+          onSelect={(value) => setPerPage(Number(value))}
           placeholder={`${perPage} per page`}
           className="ml-2"
         />

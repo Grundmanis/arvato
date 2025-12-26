@@ -1,11 +1,16 @@
 import type { NextConfig } from 'next';
 
-console.log('test', (process.env.NEXT_PUBLIC_API_URL || '').replace(/^https?:\/\//, ''));
-
 const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
+  output: 'export',
+
+  assetPrefix: './',
+  basePath: '',
+  trailingSlash: true,
+
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'http',
