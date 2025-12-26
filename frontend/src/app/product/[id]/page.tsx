@@ -35,7 +35,8 @@ export default function Home() {
                 alt="cpu"
                 width="540"
                 height="200"
-                src="/cpu.webp"
+                src={currentProduct.images[0].url}
+                unoptimized
               />
             </div>
 

@@ -1,3 +1,23 @@
+How to run the project?
+
+
+Run the fixtures to seed the datbase:
+(It will create products with image, product reviews for products, api user for requests)
+lando php bin/console doctrine:fixtures:load
+
+
+/ Fixtures
+/ front 
+/ backend
+
+
+Api docs:
+http://arvato.lndo.site/api/docs 
+
+Use login check request:
+username: api@local.test
+password: secret
+
 Backend
 PHP CS FIXER:
 To check the code:
@@ -9,6 +29,18 @@ lando php ./vendor/bin/php-cs-fixer fix
 Static analysis / type checking:
 lando php vendor/bin/phpstan analyse src --level 5
 
+Frontend
+To lint:
+npm run lint
+
+To fix linting:
+npm run lint:fix
+
+To check formatting:
+npm run format
+
+To fix formatting:
+npm run format:fix
  
 
 Your task is to create a product detail page for our online product shop based on the provided
@@ -72,21 +104,32 @@ your code.
 Before finishing
 NOT DONE - Create a public Git repository, commit your code there and share a link.
 
+
+
+
 TODO left:
 2. PARTIALLY DONE - Setup Docker or Lando (as a bonus);
-4. EXCEPT IMAGE DONE Create “Product” entity with all needed fields for the front-end, plus the following:
 b. CHECK DONE Filters for all relevant fields;
 c. NOT_DONE Utilize translations for labels in columns/filters on list view and for field labels
 in create/update view
-c. CHECK DONE - POST
-d. CHECK DONE - PUT
-e. CHECK DONE - PATCH
-f. CHECK DONE - DELETE
-PARTIALLY DONE - For now, as product image use whatever you want. 
+
 ?? ● Form handling
-CHECK DONE - ● Linting + formatting
     NOT DONE - table sorting, 
 NOT DONE - tests
+
 ● NOT DONE - Deliverables
 ● NOT DONE - Deployed front end project, that can be firstly seen by persons without possibility to 
 NOT DONE - pre-commit checks
+NOT DONE - add redis on lando config
+pagination URL
+perPage URL
+error handling in api requests
+price as string should be passed 
+no products found FLASH OF CONTENT
+
+why 2 different types?
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTime();
+
+        image upload in admin
+        show image in product show

@@ -31,3 +31,8 @@ services:
         class: App\Admin\ProductReviewAdmin
         tags:
             - { name: sonata.admin, model_class: App\Entity\ProductReview, controller: ~, manager_type: orm, group: admin, label: ProductReview }
+    App\Serializer\ProductImageNormalizer:
+        arguments:
+            $imageUrlGenerator: '@App\Service\ImageUrlGenerator'
+        tags:
+            - { name: 'serializer.normalizer' }

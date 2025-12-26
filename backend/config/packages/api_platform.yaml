@@ -1,8 +1,14 @@
 api_platform:
-    title: Hello API Platform
+    title: Arvato API 
     version: 1.0.0
     defaults:
         stateless: true
         pagination_client_items_per_page: true
+        security: 'is_granted("IS_AUTHENTICATED_FULLY")'
         cache_headers:
             vary: ['Content-Type', 'Authorization', 'Origin']
+    swagger:
+        api_keys:
+            JWT:
+                name: Authorization
+                type: header

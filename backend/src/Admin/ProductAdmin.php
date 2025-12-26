@@ -10,6 +10,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\Form\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 final class ProductAdmin extends AbstractAdmin
 {
@@ -74,7 +76,13 @@ final class ProductAdmin extends AbstractAdmin
             ->add('updatedAt', null, [
                 'label' => 'product.field.updated_at',
             ])
-            ->add(ListMapper::NAME_ACTIONS);
+            ->add(ListMapper::NAME_ACTIONS, null, [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ],
+            ]);
 
         // $list
         //     ->add('id')
@@ -88,13 +96,7 @@ final class ProductAdmin extends AbstractAdmin
         //     ->add('publicId')
         //     ->add('createdAt')
         //     ->add('updatedAt')
-        //     ->add(ListMapper::NAME_ACTIONS, null, [
-        //         'actions' => [
-        //             'show' => [],
-        //             'edit' => [],
-        //             'delete' => [],
-        //         ],
-        //     ]);
+
     }
 
     protected function configureFormFields(FormMapper $form): void
@@ -111,6 +113,13 @@ final class ProductAdmin extends AbstractAdmin
             ])
             ->add('quantity', null, [
                 'label' => 'product.field.quantity',
+            ])
+            ->add('images', CollectionType::class, [
+                'entry_type' => FileType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'required' => false,
             ]);
         // ->add('name')
         // ->add('category')

@@ -1,3 +1,5 @@
+import { Sort } from '@/types/product';
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export type ProductFilters = {
@@ -5,7 +7,7 @@ export type ProductFilters = {
   category?: { label: string; value: string }[];
 };
 
-export function buildProductQuery(filters: ProductFilters): string {
+export function buildProductQuery(filters: ProductFilters, sorting?: Sort[]): string {
   const params = new URLSearchParams();
 
   if (filters.name) {
@@ -16,6 +18,11 @@ export function buildProductQuery(filters: ProductFilters): string {
     params.append('category', filters.category.map((c) => c.value).join(','));
   }
 
+  if (sorting?.length) {
+    const sort = sorting[0];
+    params.append(`order[${sort.id}]`, sort.desc ? 'desc' : 'asc');
+  }
+
   return params.toString();
 }
 
@@ -23,15 +30,16 @@ export async function fetchProductsFromApi(
   page: number,
   itemsPerPage: number,
   filters: ProductFilters,
+  sorting: Sort[],
 ) {
   let token = '';
   if (!token) {
     token = await login();
   }
-  console.log({ token });
-  const query = buildProductQuery(filters);
+
+  const query = buildProductQuery(filters, sorting);
   const res = await fetch(
-    `${API_URL}/products?page=${page}&itemsPerPage=${itemsPerPage}&${query}`,
+    `${API_URL}/api/products?page=${page}&itemsPerPage=${itemsPerPage}&${query}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -47,8 +55,7 @@ export async function fetchProductByIdFromApi(id: number) {
   if (!token) {
     token = await login();
   }
-  console.log({ token });
-  const res = await fetch(`${API_URL}/products/${id}`, {
+  const res = await fetch(`${API_URL}/api/products/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -62,8 +69,7 @@ export async function fetchProductCategories() {
   if (!token) {
     token = await login();
   }
-  console.log({ token });
-  const res = await fetch(`${API_URL}/filters/products/categories`, {
+  const res = await fetch(`${API_URL}/api/filters/products/categories`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -77,8 +83,7 @@ export async function fetchProductNames() {
   if (!token) {
     token = await login();
   }
-  console.log({ token });
-  const res = await fetch(`${API_URL}/filters/products/names`, {
+  const res = await fetch(`${API_URL}/api/filters/products/names`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -91,7 +96,7 @@ export async function login() {
   const API_LOGIN = process.env.NEXT_PUBLIC_API_LOGIN;
   const API_PASSWORD = process.env.NEXT_PUBLIC_API_PASSWORD;
 
-  const res = await fetch(`${API_URL}/login_check`, {
+  const res = await fetch(`${API_URL}/api/login_check`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -102,7 +107,6 @@ export async function login() {
   if (!res.ok) throw new Error('Login failed');
 
   const data = await res.json();
-  console.log('login token', data.token);
   localStorage.setItem('jwt', data.token);
   return data.token;
 }

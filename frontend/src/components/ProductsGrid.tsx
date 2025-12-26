@@ -17,11 +17,12 @@ export default function ProductGrid({ products }: { products: Product[] }) {
         >
           <div className="h-48 w-full overflow-hidden rounded-lg">
             <Image
-              src="/cpu.webp"
+              src={product.images[0].url}
               alt="cpu"
               width={300}
               height={200}
               className="h-full w-full object-cover"
+              unoptimized
             />
           </div>
 

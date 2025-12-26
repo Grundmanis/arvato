@@ -14,8 +14,17 @@ import { useProductFilters } from '@/hooks/useProductFilters';
 import { usePagination } from '@/hooks/usePagination';
 
 export default function Home() {
-  const { gridType, perPage, setPerPage, fetchProducts, products, totalProductCount, loading } =
-    useProductStore((state) => state);
+  const {
+    gridType,
+    perPage,
+    setPerPage,
+    fetchProducts,
+    products,
+    totalProductCount,
+    loading,
+    sort,
+    setSort,
+  } = useProductStore((state) => state);
 
   const {
     selectedCategories,
@@ -31,9 +40,11 @@ export default function Home() {
 
   useProductsFetcher(
     fetchProducts,
+    setPage,
     page,
     { name: selectedName, category: selectedCategories },
     perPage,
+    sort,
   );
 
   return (
@@ -73,7 +84,7 @@ export default function Home() {
         ) : products.length === 0 ? (
           <div className="py-10 text-center text-gray-500">No products found.</div>
         ) : gridType === 'table' ? (
-          <ProductsTable products={products} />
+          <ProductsTable products={products} onSortingChange={setSort} sortingData={sort} />
         ) : (
           <ProductGrid products={products} />
         )}

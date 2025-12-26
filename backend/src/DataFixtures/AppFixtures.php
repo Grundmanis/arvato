@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Product;
+use App\Entity\ProductImage;
 use App\Entity\ProductReview;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -19,7 +20,14 @@ class AppFixtures extends Fixture
             $product->setName($faker->words(3, true));
             $product->setCategory($faker->words(2, true));
             $product->setPrice($faker->randomFloat(2, 10, 500));
-            $product->setQuantity($faker->randomNumber(2));
+            $product->setQuantity($faker->numberBetween(0, 5));
+
+            $imageFiles = ['cpu.webp'];
+            foreach ($imageFiles as $filename) {
+                $image = new ProductImage();
+                $image->setPath($filename);
+                $product->addImage($image);
+            }
 
             $manager->persist($product);
 

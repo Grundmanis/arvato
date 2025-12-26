@@ -10,6 +10,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 // TODO: add apiResource for filtelrs
 #[ApiResource(
@@ -17,6 +24,17 @@ use Symfony\Component\Uid\Uuid;
         'max_age' => 3600,        // cache in browser
         'shared_max_age' => 3600, // cache for reverse proxy
         'vary' => ['Authorization'], // vary cache based on Authorization header
+    ],
+    order: ['createdAt' => 'DESC'],
+    normalizationContext: ['groups' => ['product:read']],
+    denormalizationContext: ['groups' => ['product:write']],
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Put(),
+        new Patch(),
+        new Delete(),
     ]
 )]
 #[ApiFilter(SearchFilter::class, properties: [
@@ -30,27 +48,35 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['product:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['product:read', 'product:write'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['product:read', 'product:write'])]
     private ?string $category = null;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
+    #[Groups(['product:read', 'product:write'])]
     private ?string $price = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['product:read', 'product:write'])]
     private ?int $quantity = null;
 
     #[ORM\Column(type: 'uuid', unique: true)]
+    #[Groups(['product:read'])]
     private ?Uuid $publicId = null;
 
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Groups(['product:read'])]
     private \DateTimeImmutable $createdAt;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups(['product:read'])]
     private \DateTime $updatedAt;
 
     /**
@@ -59,10 +85,18 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductReview::class, orphanRemoval: true)]
     private Collection $reviews;
 
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductImage::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[Groups(['product:read', 'product:write'])]
+    private Collection $images;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
         $this->publicId = Uuid::v4();
+        // TODO: fix types
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTime();
+        $this->images = new ArrayCollection();
     }
 
     #[ORM\PrePersist]
@@ -89,7 +123,7 @@ class Product
             return 0;
         }
 
-        $total = array_sum($this->reviews->map(fn ($r) => $r->getRating())->toArray());
+        $total = array_sum($this->reviews->map(fn($r) => $r->getRating())->toArray());
 
         return round($total / $this->reviews->count(), 2);
     }
@@ -150,6 +184,30 @@ class Product
     public function getPublicId(): ?Uuid
     {
         return $this->publicId;
+    }
+
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(ProductImage $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setProduct($this);
+        }
+        return $this;
+    }
+
+    public function removeImage(ProductImage $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            if ($image->getProduct() === $this) {
+                $image->setProduct(null);
+            }
+        }
+        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable

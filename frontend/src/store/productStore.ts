@@ -1,5 +1,5 @@
 import { createStore } from 'zustand/vanilla';
-import { defaultInitState, ProductState, ProductStore, ProductType } from '@/types/product';
+import { defaultInitState, ProductState, ProductStore, ProductType, Sort } from '@/types/product';
 import { ProductFilters, fetchProductsFromApi, fetchProductByIdFromApi } from '@/api/api';
 
 export const createProductStore = (initState: ProductState = defaultInitState) =>
@@ -8,12 +8,13 @@ export const createProductStore = (initState: ProductState = defaultInitState) =
 
     setGridType: (gridType: ProductType) => set({ gridType }),
     setPerPage: (perPage: number) => set({ perPage }),
+    setSort: (sort: Sort[]) => set({ sort }),
 
-    fetchProducts: async (page: number, filters: ProductFilters) => {
+    fetchProducts: async (page: number, filters: ProductFilters, sort?: Sort[]) => {
       set({ loading: true, error: null });
       try {
         const state = get();
-        const data = await fetchProductsFromApi(page, state.perPage, filters);
+        const data = await fetchProductsFromApi(page, state.perPage, filters, state.sort);
         set({ products: data.member, totalProductCount: data.totalItems, loading: false });
       } catch (err: unknown) {
         if (err instanceof Error) {

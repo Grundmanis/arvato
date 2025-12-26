@@ -1,6 +1,7 @@
 'use client';
 
-import { createProductStore, ProductStore } from '@/store/productStore';
+import { createProductStore } from '@/store/productStore';
+import { ProductStore } from '@/types/product';
 import { type ReactNode, createContext, useState, useContext } from 'react';
 import { useStore } from 'zustand';
 

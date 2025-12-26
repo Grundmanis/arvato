@@ -1,9 +1,16 @@
 'use client';
 
-import { useReactTable, getCoreRowModel, flexRender, ColumnDef } from '@tanstack/react-table';
+import {
+  useReactTable,
+  getCoreRowModel,
+  flexRender,
+  ColumnDef,
+  getSortedRowModel,
+} from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import Checkbox from './Checkbox';
-import { Product } from '@/types/product';
+import { Product, Sort } from '@/types/product';
+import { useEffect, useState } from 'react';
 
 const columns: ColumnDef<Product>[] = [
   {
@@ -18,45 +25,129 @@ const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: 'publicId',
-    header: 'ID',
+    enableSorting: true,
+    header: ({ column }) => (
+      <button
+        onClick={column.getToggleSortingHandler()}
+        className="flex cursor-pointer items-center gap-1"
+      >
+        ID
+        {column.getIsSorted() === 'asc' && '↑'}
+        {column.getIsSorted() === 'desc' && '↓'}
+      </button>
+    ),
     cell: (info) => <span className="text-black">{`${info.getValue()}`}</span>,
   },
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: ({ column }) => (
+      <button
+        onClick={column.getToggleSortingHandler()}
+        className="flex cursor-pointer items-center gap-1"
+      >
+        Name
+        {column.getIsSorted() === 'asc' && '↑'}
+        {column.getIsSorted() === 'desc' && '↓'}
+      </button>
+    ),
   },
   {
     accessorKey: 'category',
-    header: 'Category',
+
+    header: ({ column }) => (
+      <button
+        onClick={column.getToggleSortingHandler()}
+        className="flex cursor-pointer items-center gap-1"
+      >
+        Category
+        {column.getIsSorted() === 'asc' && '↑'}
+        {column.getIsSorted() === 'desc' && '↓'}
+      </button>
+    ),
   },
   {
     accessorKey: 'price',
-    header: 'Price',
+    header: ({ column }) => (
+      <button
+        onClick={column.getToggleSortingHandler()}
+        className="flex cursor-pointer items-center gap-1"
+      >
+        Price
+        {column.getIsSorted() === 'asc' && '↑'}
+        {column.getIsSorted() === 'desc' && '↓'}
+      </button>
+    ),
     cell: (info) => `$${info.getValue()}`,
   },
   {
     accessorKey: 'inStock',
-    header: 'In Stock',
+    header: ({ column }) => (
+      <button
+        onClick={column.getToggleSortingHandler()}
+        className="flex cursor-pointer items-center gap-1"
+      >
+        In Stock
+        {column.getIsSorted() === 'asc' && '↑'}
+        {column.getIsSorted() === 'desc' && '↓'}
+      </button>
+    ),
     cell: (info) => (info.getValue() ? 'True' : 'False'),
   },
   {
     accessorKey: 'quantity',
-    header: 'Stock Quantity',
+    header: ({ column }) => (
+      <button
+        onClick={column.getToggleSortingHandler()}
+        className="flex cursor-pointer items-center gap-1"
+      >
+        Stock Quantity
+        {column.getIsSorted() === 'asc' && '↑'}
+        {column.getIsSorted() === 'desc' && '↓'}
+      </button>
+    ),
   },
   {
     accessorKey: 'rating',
-    header: 'Rating',
+    header: ({ column }) => (
+      <button
+        onClick={column.getToggleSortingHandler()}
+        className="flex cursor-pointer items-center gap-1"
+      >
+        Rating
+        {column.getIsSorted() === 'asc' && '↑'}
+        {column.getIsSorted() === 'desc' && '↓'}
+      </button>
+    ),
   },
 ];
 
-export default function ProductsTable({ products }: { products: Product[] }) {
+export default function ProductsTable({
+  products,
+  onSortingChange,
+  sortingData,
+}: {
+  products: Product[];
+  onSortingChange: (value: { id: string; desc: boolean }[]) => void;
+  sortingData: Sort[];
+}) {
+  const [sorting, setSorting] = useState(sortingData);
   const router = useRouter();
   const table = useReactTable({
     data: products || [],
     columns,
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     enableRowSelection: true,
+    manualSorting: true,
+    getSortedRowModel: getSortedRowModel(),
   });
+
+  useEffect(() => {
+    onSortingChange(sorting);
+  }, [sorting]);
 
   return (
     <div className="overflow-x-auto">

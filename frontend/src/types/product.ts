@@ -1,4 +1,14 @@
 export type ProductType = 'table' | 'grid';
+type ProductImage = {
+  id: number;
+  path: string;
+  url: string;
+};
+
+export type Sort = {
+  id: string;
+  desc: boolean;
+};
 
 export type Product = {
   id: number;
@@ -11,6 +21,7 @@ export type Product = {
   createdAt: string;
   updatedAt: string;
   rating?: number;
+  images: ProductImage[];
 };
 
 export type ProductState = {
@@ -18,6 +29,7 @@ export type ProductState = {
   perPage: number;
   products: Product[];
   totalProductCount: number;
+  sort: Sort[];
   currentProduct?: Product;
   loading: boolean;
   error: string | null;
@@ -26,8 +38,9 @@ export type ProductState = {
 export type ProductActions = {
   setGridType: (value: ProductType) => void;
   setPerPage: (value: number) => void;
-  fetchProducts: (page: number, filters: Record<string, unknown>) => Promise<void>;
+  fetchProducts: (page: number, filters: Record<string, unknown>, sort?: Sort[]) => Promise<void>;
   fetchProductById: (id: number) => Promise<void>;
+  setSort: (value: Sort[]) => void;
 };
 
 export type ProductStore = ProductState & ProductActions;
@@ -37,6 +50,7 @@ export const defaultInitState: ProductState = {
   perPage: 10,
   products: [],
   totalProductCount: 0,
+  sort: [],
   currentProduct: undefined,
   loading: false,
   error: null,
