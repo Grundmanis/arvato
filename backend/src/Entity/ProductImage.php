@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
@@ -22,14 +22,12 @@ class ProductImage
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
 
-    /**
-     * @var File|null
-     */
     private ?File $file = null;
 
     public function setFile(?File $file = null): self
     {
         $this->file = $file;
+
         return $this;
     }
 
@@ -51,6 +49,7 @@ class ProductImage
     public function setPath(string $path): self
     {
         $this->path = $path;
+
         return $this;
     }
 
@@ -62,13 +61,14 @@ class ProductImage
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
+
         return $this;
     }
 
     #[Groups(['product:read'])]
     public function getUrl(): ?string
     {
-        return $this->path ? '/uploads/products/' . $this->path : null;
+        return $this->path ? '/uploads/products/'.$this->path : null;
     }
 
     #[ORM\PrePersist]
@@ -79,8 +79,8 @@ class ProductImage
             return;
         }
 
-        $filename = uniqid() . '.' . $this->file->guessExtension();
-        $this->file->move(__DIR__ . '/../../public/uploads/products', $filename);
+        $filename = uniqid().'.'.$this->file->guessExtension();
+        $this->file->move(__DIR__.'/../../public/uploads/products', $filename);
         $this->setPath($filename);
     }
 }

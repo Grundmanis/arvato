@@ -147,7 +147,7 @@ export default function ProductsTable({
 
   useEffect(() => {
     onSortingChange(sorting);
-  }, [sorting]);
+  }, [sorting, onSortingChange]);
 
   return (
     <div className="overflow-x-auto">

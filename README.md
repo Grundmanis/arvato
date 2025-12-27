@@ -71,8 +71,8 @@ b. DONE - updatedAt (datetime)
 and updatedAt fields;
 6. DONE - Create Sonata admin section to manage “Product” entity (CRUD):
 a. DONE - List with all relevant fields;
-b. CHECK DONE Filters for all relevant fields;
-c. NOT_DONE Utilize translations for labels in columns/filters on list view and for field labels
+b. DONE Filters for all relevant fields;
+c. DONE Utilize translations for labels in columns/filters on list view and for field labels
 in create/update view
 7. DONE - Create “ProductReview” entity with all needed fields for the front-end, plus the
 following:
@@ -92,7 +92,6 @@ choice such as React).
 DONE - Data should be fetched from back-end API (#10 from Back-end part).
 DONE - For now, as product image use whatever you want. 
 DONE - In your task React and Typescript are mandatory requirement.
-Some things that we will pay attention:
 DONE - ● State management
 DONE - ● List rendering
 CHECK -  Form handling

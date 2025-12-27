@@ -3,11 +3,11 @@
 namespace App\Tests\Controller;
 
 use App\DataFixtures\AppFixtures;
+use App\DataFixtures\UserFixture;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use \App\DataFixtures\UserFixture;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 final class ProductFilterControllerTest extends WebTestCase
 {
@@ -26,7 +26,7 @@ final class ProductFilterControllerTest extends WebTestCase
 
         $this->databaseTool->loadFixtures([
             UserFixture::class,
-            AppFixtures::class
+            AppFixtures::class,
         ]);
 
         $this->user = static::getContainer()->get(UserRepository::class)

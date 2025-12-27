@@ -6,18 +6,18 @@ use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\ProductRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
@@ -42,7 +42,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     'name' => 'partial',
     'category' => 'exact',
 ])]
-
 #[ApiFilter(OrderFilter::class, properties: ['quantity', 'price', 'category', 'name', 'id', 'rating', 'inStock'])]
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -56,19 +55,19 @@ class Product
 
     #[ORM\Column(length: 255)]
     #[Groups(['product:read', 'product:write'])]
-    #[Assert\NotBlank(message: "Name is required.")]
+    #[Assert\NotBlank(message: 'Name is required.')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['product:read', 'product:write'])]
-    #[Assert\NotBlank(message: "Category is required.")]
+    #[Assert\NotBlank(message: 'Category is required.')]
     // should be a separate Category entity
     private ?string $category = null;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     #[Groups(['product:read', 'product:write'])]
-    #[Assert\NotBlank(message: "Price is required.")]
-    #[Assert\Type(type: 'numeric', message: "Price must be a number.")]
+    #[Assert\NotBlank(message: 'Price is required.')]
+    #[Assert\Type(type: 'numeric', message: 'Price must be a number.')]
     private ?string $price = null;
 
     #[ORM\Column(nullable: true)]
@@ -125,7 +124,6 @@ class Product
         return $this->id;
     }
 
-
     #[Groups(['product:read'])]
     public function getRating(): float
     {
@@ -133,7 +131,7 @@ class Product
             return 0;
         }
 
-        $total = array_sum($this->reviews->map(fn($r) => $r->getRating())->toArray());
+        $total = array_sum($this->reviews->map(fn ($r) => $r->getRating())->toArray());
 
         return round($total / $this->reviews->count(), 2);
     }
@@ -202,13 +200,13 @@ class Product
         return $this->images;
     }
 
-
     #[Groups(['product:read'])]
     public function getMainImage(): ?ProductImage
     {
         if (!$this->images->isEmpty()) {
             return $this->images->first();
         }
+
         return null;
     }
 
@@ -218,6 +216,7 @@ class Product
             $this->images[] = $image;
             $image->setProduct($this);
         }
+
         return $this;
     }
 
@@ -228,6 +227,7 @@ class Product
                 $image->setProduct(null);
             }
         }
+
         return $this;
     }
 

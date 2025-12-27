@@ -6,7 +6,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class ImageUrlGenerator
 {
-    public function __construct(private RequestStack $requestStack) {}
+    public function __construct(private RequestStack $requestStack)
+    {
+    }
 
     public function getUrl(string $path): ?string
     {
@@ -15,6 +17,6 @@ class ImageUrlGenerator
             return null;
         }
 
-        return $request->getSchemeAndHttpHost() . '/uploads/products/' . $path;
+        return $request->getSchemeAndHttpHost().'/uploads/products/'.$path;
     }
 }

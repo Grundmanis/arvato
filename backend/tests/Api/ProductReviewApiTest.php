@@ -3,12 +3,12 @@
 namespace App\Tests\Api;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
-use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
-use \App\DataFixtures\UserFixture;
 use App\DataFixtures\AppFixtures;
-use App\Repository\UserRepository;
+use App\DataFixtures\UserFixture;
 use App\Repository\ProductRepository;
 use App\Repository\ProductReviewRepository;
+use App\Repository\UserRepository;
+use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 
 class ProductReviewApiTest extends ApiTestCase
 {
@@ -33,7 +33,7 @@ class ProductReviewApiTest extends ApiTestCase
 
         $this->databaseTool->loadFixtures([
             UserFixture::class,
-            AppFixtures::class
+            AppFixtures::class,
         ]);
 
         $this->user = static::getContainer()->get(UserRepository::class)
@@ -82,7 +82,7 @@ class ProductReviewApiTest extends ApiTestCase
     public function testGetItem(): void
     {
         $this->client->loginUser($this->user);
-        $response = $this->client->request('GET', '/api/product_reviews/' . $this->productReview->getId());
+        $response = $this->client->request('GET', '/api/product_reviews/'.$this->productReview->getId());
 
         $this->assertResponseIsSuccessful();
 
@@ -100,7 +100,7 @@ class ProductReviewApiTest extends ApiTestCase
         $this->client->loginUser($this->user);
         $id = $this->productReview->getId();
 
-        $this->client->request('DELETE', '/api/product_reviews/' . $id);
+        $this->client->request('DELETE', '/api/product_reviews/'.$id);
 
         $this->assertResponseStatusCodeSame(204);
 
@@ -113,7 +113,7 @@ class ProductReviewApiTest extends ApiTestCase
         $this->client->loginUser($this->user);
         $id = $this->productReview->getId();
 
-        $response = $this->client->request('PATCH', '/api/product_reviews/' . $id, [
+        $response = $this->client->request('PATCH', '/api/product_reviews/'.$id, [
             'headers' => ['Content-Type' => 'application/merge-patch+json'],
             'json' => [
                 'comment' => 'updated',

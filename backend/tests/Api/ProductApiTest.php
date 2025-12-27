@@ -3,11 +3,11 @@
 namespace App\Tests\Api;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
-use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
-use \App\DataFixtures\UserFixture;
 use App\DataFixtures\AppFixtures;
-use App\Repository\UserRepository;
+use App\DataFixtures\UserFixture;
 use App\Repository\ProductRepository;
+use App\Repository\UserRepository;
+use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 
 class ProductApiTest extends ApiTestCase
 {
@@ -30,7 +30,7 @@ class ProductApiTest extends ApiTestCase
 
         $this->databaseTool->loadFixtures([
             UserFixture::class,
-            AppFixtures::class
+            AppFixtures::class,
         ]);
 
         $this->user = static::getContainer()->get(UserRepository::class)
@@ -75,7 +75,7 @@ class ProductApiTest extends ApiTestCase
     public function testGetItem(): void
     {
         $this->client->loginUser($this->user);
-        $response = $this->client->request('GET', '/api/products/' . $this->product->getId());
+        $response = $this->client->request('GET', '/api/products/'.$this->product->getId());
 
         $this->assertResponseIsSuccessful();
 
@@ -95,7 +95,7 @@ class ProductApiTest extends ApiTestCase
         $this->client->loginUser($this->user);
         $id = $this->product->getId();
 
-        $this->client->request('DELETE', '/api/products/' . $id);
+        $this->client->request('DELETE', '/api/products/'.$id);
 
         $this->assertResponseStatusCodeSame(204);
 
@@ -108,12 +108,12 @@ class ProductApiTest extends ApiTestCase
         $this->client->loginUser($this->user);
         $id = $this->product->getId();
 
-        $this->client->request('PUT', '/api/products/' . $id, [
+        $this->client->request('PUT', '/api/products/'.$id, [
             'headers' => ['Content-Type' => 'application/ld+json'],
             'json' => [
                 'name' => 'Updated Product Name',
                 'category' => $this->product->getCategory(),
-                'price' => "222.123"
+                'price' => '222.123',
             ],
         ]);
 
@@ -131,7 +131,7 @@ class ProductApiTest extends ApiTestCase
         $this->client->loginUser($this->user);
         $id = $this->product->getId();
 
-        $this->client->request('PUT', '/api/products/' . $id, [
+        $this->client->request('PUT', '/api/products/'.$id, [
             'headers' => ['Content-Type' => 'application/ld+json'],
             'json' => [
                 'name' => 'Updated Product Name',
@@ -147,7 +147,7 @@ class ProductApiTest extends ApiTestCase
         $this->client->loginUser($this->user);
         $id = $this->product->getId();
 
-        $response = $this->client->request('PATCH', '/api/products/' . $id, [
+        $response = $this->client->request('PATCH', '/api/products/'.$id, [
             'headers' => ['Content-Type' => 'application/merge-patch+json'],
             'json' => [
                 'name' => 'Patched Name',

@@ -4,9 +4,9 @@ namespace App\Doctrine\Extension;
 
 use ApiPlatform\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
-use Doctrine\ORM\QueryBuilder;
-use App\Entity\Product;
 use ApiPlatform\Metadata\Operation;
+use App\Entity\Product;
+use Doctrine\ORM\QueryBuilder;
 
 class SortRatingExtension implements QueryCollectionExtensionInterface
 {
@@ -14,10 +14,10 @@ class SortRatingExtension implements QueryCollectionExtensionInterface
         QueryBuilder $qb,
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
-        Operation $operation = null,
-        array $context = []
+        ?Operation $operation = null,
+        array $context = [],
     ): void {
-        if ($resourceClass !== Product::class) {
+        if (Product::class !== $resourceClass) {
             return;
         }
 
@@ -29,7 +29,7 @@ class SortRatingExtension implements QueryCollectionExtensionInterface
             return;
         }
 
-        $direction = strtoupper($order['rating']) === 'DESC' ? 'DESC' : 'ASC';
+        $direction = 'DESC' === strtoupper($order['rating']) ? 'DESC' : 'ASC';
         $rootAlias = $qb->getRootAliases()[0];
         $qb->addSelect("(SELECT AVG(r2.rating) FROM App\\Entity\\ProductReview r2 WHERE r2.product = {$rootAlias}) AS HIDDEN ratingSort")
             ->addOrderBy('ratingSort', $direction);

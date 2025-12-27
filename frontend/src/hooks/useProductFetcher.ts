@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { ProductFilters } from '@/api/api';
 import { Sort } from '@/types/product';
+import { ProductFilters } from '@/lib/api/products.api';
 
 export function useProductsFetcher(
   fetchProducts: (page: number, filters: ProductFilters) => void,
@@ -18,5 +18,5 @@ export function useProductsFetcher(
 
   useEffect(() => {
     setPage(1);
-  }, [filters]);
+  }, [filters, setPage]);
 }

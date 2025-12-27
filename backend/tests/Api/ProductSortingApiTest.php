@@ -2,13 +2,13 @@
 
 namespace App\Tests\Api;
 
+use App\DataFixtures\AppFixtures;
+use App\DataFixtures\UserFixture;
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
-use \App\DataFixtures\UserFixture;
-use App\DataFixtures\AppFixtures;
 
 class ProductSortingApiTest extends WebTestCase
 {
@@ -23,7 +23,7 @@ class ProductSortingApiTest extends WebTestCase
         $this->databaseTool = static::getContainer()->get(DatabaseToolCollection::class)->get();
         $this->databaseTool->loadFixtures([
             UserFixture::class,
-            AppFixtures::class
+            AppFixtures::class,
         ]);
 
         $this->user = static::getContainer()->get(UserRepository::class)->findOneBy([]);
@@ -52,7 +52,7 @@ class ProductSortingApiTest extends WebTestCase
         $previous = null;
         foreach ($items as $item) {
             $rating = $item['rating'] ?? 0;
-            if ($previous !== null) {
+            if (null !== $previous) {
                 self::assertLessThanOrEqual($previous, $rating, 'Products not sorted by rating desc');
             }
             $previous = $rating;
@@ -78,7 +78,7 @@ class ProductSortingApiTest extends WebTestCase
         $previous = null;
         foreach ($items as $item) {
             $inStock = isset($item['inStock']) && $item['inStock'] ? 1 : 0;
-            if ($previous !== null) {
+            if (null !== $previous) {
                 self::assertLessThanOrEqual($previous, $inStock, 'Products not sorted by inStock desc');
             }
             $previous = $inStock;
@@ -100,7 +100,7 @@ class ProductSortingApiTest extends WebTestCase
         $previous = null;
         foreach ($items as $item) {
             $categoryName = $item['category']['name'] ?? '';
-            if ($previous !== null) {
+            if (null !== $previous) {
                 self::assertLessThanOrEqual(strcmp($previous, $categoryName), 0, 'Products not sorted by category asc');
             }
             $previous = $categoryName;

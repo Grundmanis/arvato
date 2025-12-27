@@ -86,7 +86,7 @@ final class ProductReviewAdmin extends AbstractAdmin
             ])
             ->add('comment', null, [
                 'label' => 'productReview.field.comment',
-            ]);;
+            ]);
     }
 
     protected function configureShowFields(ShowMapper $show): void

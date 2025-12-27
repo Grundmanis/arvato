@@ -20,7 +20,7 @@ final class ProductFilterController extends AbstractController
             ->getQuery()
             ->getScalarResult();
 
-        $categories = array_map(fn($row) => $row['category'], $categories);
+        $categories = array_map(fn ($row) => $row['category'], $categories);
 
         $response = new JsonResponse($categories);
 
@@ -36,7 +36,7 @@ final class ProductFilterController extends AbstractController
             ->getQuery()
             ->getScalarResult();
 
-        $names = array_map(fn($row) => $row['name'], $names);
+        $names = array_map(fn ($row) => $row['name'], $names);
 
         $response = new JsonResponse($names);
 

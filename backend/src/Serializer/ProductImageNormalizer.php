@@ -8,7 +8,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ProductImageNormalizer implements NormalizerInterface
 {
-    public function __construct(private ImageUrlGenerator $imageUrlGenerator) {}
+    public function __construct(private ImageUrlGenerator $imageUrlGenerator)
+    {
+    }
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {

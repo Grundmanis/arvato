@@ -21,7 +21,7 @@ class ProductImageType extends AbstractType
 
             $help = null;
             if ($image && $image->getPath()) {
-                $help = '<img src="' . $image->getUrl() . '" style="max-height: 80px;">';
+                $help = '<img src="'.$image->getUrl().'" style="max-height: 80px;">';
             }
 
             $form->add('file', FileType::class, [
