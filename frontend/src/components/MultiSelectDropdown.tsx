@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import {
   Listbox,
   ListboxButton,
@@ -22,12 +22,12 @@ type MultiSelectDropdownProps = {
   placeholder?: string;
 };
 
-export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
+export default function MultiSelectDropdown({
   options,
   selected,
   onChange,
   placeholder = 'Select...',
-}) => {
+}: MultiSelectDropdownProps) {
   const toggleOption = (option: Option) => {
     if (selected.find((o) => o.value === option.value)) {
       onChange(selected.filter((o) => o.value !== option.value));
@@ -78,6 +78,4 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
       </Transition>
     </Listbox>
   );
-};
-
-export default MultiSelectDropdown;
+}

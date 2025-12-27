@@ -9,7 +9,7 @@ export default function Home() {
   const productId = params?.id;
 
   return (
-    <div className="">
+    <div>
       <Breadcrumbs />
       <ProductClient productId={productId as string} />
     </div>
