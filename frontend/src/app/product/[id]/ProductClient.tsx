@@ -32,7 +32,7 @@ export default function ProductClient({ productId }: Props) {
               alt="cpu"
               width="540"
               height="200"
-              src={currentProduct.images[0].url}
+              src={currentProduct.mainImage.url}
               unoptimized
             />
           </div>

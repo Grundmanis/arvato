@@ -24,15 +24,6 @@ final class ProductFilterController extends AbstractController
 
         $response = new JsonResponse($categories);
 
-        $response->setPublic();
-        $response->setMaxAge(3600);
-        $response->setSharedMaxAge(3600);
-
-        $response->setEtag(md5(json_encode($categories)));
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
-
         return $response;
     }
 
@@ -48,15 +39,6 @@ final class ProductFilterController extends AbstractController
         $names = array_map(fn($row) => $row['name'], $names);
 
         $response = new JsonResponse($names);
-
-        $response->setPublic();           // allow shared caches
-        $response->setMaxAge(3600);       // browser cache (seconds)
-        $response->setSharedMaxAge(3600); // reverse proxy cache
-
-        $response->setEtag(md5(json_encode($names)));
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
 
         return $response;
     }

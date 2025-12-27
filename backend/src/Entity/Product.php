@@ -21,11 +21,11 @@ use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
-    // cacheHeaders: [
-    //     'max_age' => 3600,        // cache in browser
-    //     'shared_max_age' => 3600, // cache for reverse proxy
-    //     'vary' => ['Authorization'], // vary cache based on Authorization header
-    // ],
+    cacheHeaders: [
+        'max_age' => 3600,        // cache in browser
+        'shared_max_age' => 3600, // cache for reverse proxy
+        'vary' => ['Authorization'], // vary cache based on Authorization header
+    ],
     order: ['createdAt' => 'DESC'],
     normalizationContext: ['groups' => ['product:read']],
     denormalizationContext: ['groups' => ['product:write']],

@@ -17,7 +17,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
         >
           <div className="h-48 w-full overflow-hidden rounded-lg">
             <Image
-              src={product.images[0].url}
+              src={product.mainImage.url}
               alt="cpu"
               width={300}
               height={200}

@@ -22,6 +22,7 @@ export type Product = {
   updatedAt: string;
   rating?: number;
   images: ProductImage[];
+  mainImage: ProductImage;
 };
 
 export type ProductState = {
