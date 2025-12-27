@@ -10,6 +10,9 @@ https://docs.lando.dev/getting-started/installation.html
 
 
 ## Start the project:
+1. `cd frontend && cp env.example .env.local`
+(for the backend .env is kept under the git)
+
 1. `lando start`
 
 2. `cd backend`
