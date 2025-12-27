@@ -66,7 +66,9 @@ final class ProductAdmin extends AbstractAdmin
                 'label' => 'product.field.price',
             ])
             ->add('inStock', FieldDescriptionInterface::TYPE_BOOLEAN, [
-                'label' => 'product.field.in_stock',
+                'sortable' => true,
+                'sort_field_mapping' => ['fieldName' => 'quantity'],
+                'sort_parent_association_mappings' => [],
             ])
             ->add('quantity', null, [
                 'label' => 'product.field.quantity',
@@ -145,6 +147,9 @@ final class ProductAdmin extends AbstractAdmin
             ])
             ->add('publicId', null, [
                 'label' => 'product.field.publicId',
+            ])
+            ->add('rating', null, [
+                'label' => 'product.field.rating',
             ])
             ->add('createdAt', null, [
                 'label' => 'product.field.createdAt',
