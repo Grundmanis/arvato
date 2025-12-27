@@ -1,5 +1,8 @@
 ### This project is fully wrapped in Lando, so you only need Docker and Lando installed.
 
+![Symfony Tests](https://github.com/Grundmanis/arvato/actions/workflows/symfony.yml/badge.svg?branch=main)
+
+
 Prerequisites
 
 Docker
