@@ -1,21 +1,17 @@
+'use client';
+
 import Breadcrumbs from '@/components/Breadcrumbs';
 import ProductClient from './ProductClient';
+import { useParams } from 'next/navigation';
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
+export default function Home() {
+  const params = useParams();
+  const productId = params?.id;
 
-export default function Home({ params }: Props) {
   return (
     <div className="">
       <Breadcrumbs />
-      <ProductClient productId={params.id as string} />
+      <ProductClient productId={productId as string} />
     </div>
   );
-}
-
-export async function generateStaticParams() {
-  return [{ id: '1' }, { id: '2' }, { id: '3' }];
 }

@@ -1,5 +1,5 @@
+import { fetchProductCategories, fetchProductNames } from '@/lib/api/products.api';
 import { useState, useEffect } from 'react';
-import { fetchProductCategories, fetchProductNames } from '@/api/api';
 
 export function useProductFilters() {
   const [categories, setCategories] = useState<string[]>([]);

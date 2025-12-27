@@ -101,7 +101,7 @@ DONE - ● Linting + formatting
     DONE - table sorting (without URLS), 
     DONE - filter sorting,
     DONE - browser history handling, 
-    NOT DONE - tests
+    DONE - tests
 ● NOT DONE - Deliverables
 ● NOT DONE - Deployed front end project, that can be firstly seen by persons without possibility to run
 your code.
@@ -117,8 +117,6 @@ TODO left:
 b. CHECK DONE Filters for all relevant fields;
 c. NOT_DONE Utilize translations for labels in columns/filters on list view and for field labels
 in create/update view
-NOT DONE Form handling
-NOT DONE - tests
 ● NOT DONE - Deliverables
 ● NOT DONE - Deployed front end project, that can be firstly seen by persons without possibility to 
 NOT DONE - add redis on lando config

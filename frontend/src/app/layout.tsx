@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { ProductStoreProvider } from '@/providers/productProvider';
+import AuthInitializer from './AuthInitializer';
 
 export const metadata: Metadata = {
   title: 'Arvato',
@@ -15,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ProductStoreProvider>
+        <AuthInitializer />
         <body className="min-h-screen bg-gray-50 px-[46px]">{children}</body>
       </ProductStoreProvider>
     </html>

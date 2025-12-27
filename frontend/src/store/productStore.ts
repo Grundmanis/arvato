@@ -1,6 +1,10 @@
 import { createStore } from 'zustand/vanilla';
 import { defaultInitState, ProductState, ProductStore, ProductType, Sort } from '@/types/product';
-import { ProductFilters, fetchProductsFromApi, fetchProductByIdFromApi } from '@/api/api';
+import {
+  fetchProductByIdFromApi,
+  fetchProductsFromApi,
+  ProductFilters,
+} from '@/lib/api/products.api';
 
 export const createProductStore = (initState: ProductState = defaultInitState) =>
   createStore<ProductStore>()((set, get) => ({
@@ -10,7 +14,7 @@ export const createProductStore = (initState: ProductState = defaultInitState) =
     setPerPage: (perPage: number) => set({ perPage }),
     setSort: (sort: Sort[]) => set({ sort }),
 
-    fetchProducts: async (page: number, filters: ProductFilters, sort?: Sort[]) => {
+    fetchProducts: async (page: number, filters: ProductFilters) => {
       set({ loading: true, error: null });
       try {
         const state = get();
