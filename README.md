@@ -1,4 +1,4 @@
-This project is fully wrapped in Lando, so you only need Docker and Lando installed.
+### This project is fully wrapped in Lando, so you only need Docker and Lando installed.
 
 Prerequisites
 
@@ -9,7 +9,7 @@ Lando
 https://docs.lando.dev/getting-started/installation.html
 
 
-Start the project:
+## Start the project:
 1. `lando start`
 
 2. `cd backend`
@@ -25,11 +25,11 @@ Start the project:
 `lando php bin/console doctrine:fixtures:load`
 
 
-Run backend test:
+# Run backend tests:
 `lando php bin/phpunit`
 
 
-Api docs:
+# Api docs:
 Open: http://arvato.lndo.site/api/docs 
 
 Use login_check request:
@@ -38,7 +38,7 @@ username: api@local.test
 password: secret
 ```
 
-PHP CS FIXER:
+# PHP CS FIXER:
 To check the code:
 `lando php ./vendor/bin/php-cs-fixer check`
 
@@ -48,7 +48,7 @@ To fix the code:
 Static analysis / type checking:
 `lando php vendor/bin/phpstan analyse src --level 5`
 
-Frontend (cd frontend)
+## Frontend (cd frontend)
 To lint:
 `lando npm run lint`
 
