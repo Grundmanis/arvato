@@ -59,7 +59,7 @@ class ProductReview
     #[Groups(['productReview:read'])]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[ORM\Column(type: 'datetime', nullable: true)]
     #[Groups(['productReview:read'])]
     private ?\DateTime $updatedAt = null;
 

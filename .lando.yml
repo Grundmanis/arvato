@@ -3,9 +3,9 @@ recipe: symfony
 config:
   webroot: backend/public
 services:
-  appserver:
-    build:
-      - cd backend && composer install
+  # appserver:
+  #   build:
+  #     - cd backend && composer install
   database:
     type: mysql:8.0
     creds:

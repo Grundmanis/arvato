@@ -8,15 +8,26 @@ https://www.docker.com/get-started
 Lando
 https://docs.lando.dev/getting-started/installation.html
 
-1. Start the project:
-lando start
 
-2. Run migration (in backend folder)
+Start the project:
+1. lando start
+
+2. cd backend
+
+3. Install packages
+
+lando composer install
+4. Run migration
 lando php bin/console doctrine:migrations:migrate
 
-3. Run the fixtures to seed the datbase with test data  (in backend folder):
+5. Run the fixtures to seed the datbase with test data:
 (It will create products with image, product reviews, api user for requests)
 lando php bin/console doctrine:fixtures:load
+
+
+Run backend test:
+lando php bin/phpunit
+
 
 Api docs:
 Open: http://arvato.lndo.site/api/docs 
@@ -25,7 +36,6 @@ Use login_check request:
 username: api@local.test
 password: secret
 
-Backend (cd backend)
 PHP CS FIXER:
 To check the code:
 lando php ./vendor/bin/php-cs-fixer check
