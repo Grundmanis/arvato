@@ -17,7 +17,7 @@ https://docs.lando.dev/getting-started/installation.html
 3. Install packages
 `lando composer install`
 
-4. Run migration
+4. Run migrations
 `lando php bin/console doctrine:migrations:migrate`
 
 5. Run the fixtures to seed the datbase with test data:
@@ -31,11 +31,13 @@ https://docs.lando.dev/getting-started/installation.html
 ## Api docs:
 Open: http://arvato.lndo.site/api/docs 
 
-Use login_check request:
+Use `login_check` request:
 ```
 username: api@local.test
 password: secret
 ```
+Authorize using received jwt token
+Test any request
 
 ## PHP CS FIXER:
 To check the code:
