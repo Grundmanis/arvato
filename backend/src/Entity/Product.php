@@ -192,6 +192,14 @@ class Product
         return $this->images;
     }
 
+    public function getMainImage(): ?ProductImage
+    {
+        if (!$this->images->isEmpty()) {
+            return $this->images->first();
+        }
+        return null;
+    }
+
     public function addImage(ProductImage $image): self
     {
         if (!$this->images->contains($image)) {
@@ -219,5 +227,10 @@ class Product
     public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
+    }
+
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
     }
 }
