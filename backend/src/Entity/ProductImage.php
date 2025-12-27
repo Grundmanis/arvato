@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
 class ProductImage
 {
     #[ORM\Id, ORM\GeneratedValue, ORM\Column]
@@ -19,6 +21,22 @@ class ProductImage
     #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
+
+    /**
+     * @var File|null
+     */
+    private ?File $file = null;
+
+    public function setFile(?File $file = null): self
+    {
+        $this->file = $file;
+        return $this;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
 
     public function getId(): ?int
     {
@@ -51,5 +69,18 @@ class ProductImage
     public function getUrl(): ?string
     {
         return $this->path ? '/uploads/products/' . $this->path : null;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function uploadFile(): void
+    {
+        if (!$this->file) {
+            return;
+        }
+
+        $filename = uniqid() . '.' . $this->file->guessExtension();
+        $this->file->move(__DIR__ . '/../../public/uploads/products', $filename);
+        $this->setPath($filename);
     }
 }

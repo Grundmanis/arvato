@@ -114,19 +114,12 @@ DONE - Create a public Git repository, commit your code there and share a link.
 
 
 TODO left:
-b. CHECK DONE Filters for all relevant fields;
-c. NOT_DONE Utilize translations for labels in columns/filters on list view and for field labels
+b. DONE Filters for all relevant fields;
+c. DONE Utilize translations for labels in columns/filters on list view and for field labels
 in create/update view
 ● NOT DONE - Deliverables
 ● NOT DONE - Deployed front end project, that can be firstly seen by persons without possibility to 
 NOT DONE - add redis on lando config
 pagination URL
 perPage URL
-error handling in api requests
-price as string should be passed 
-no products found FLASH OF CONTENT
-
-        image upload in admin
-        show image in product show
-        sort and filters to next URL 
-        login check 
+sort and filters to next URL 

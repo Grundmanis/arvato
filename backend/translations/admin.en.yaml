@@ -9,3 +9,13 @@ product:
     public_id: Public ID
     created_at: Created at
     updated_at: Updated at
+    actions: Actions
+productReview:
+    field:
+        id: "ID"
+        product: "Product"
+        rating: "Rating"
+        comment: "Comment"
+        created_at: "Created At"
+        updated_at: "Updated At"
+        actions: Actions

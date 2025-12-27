@@ -1,0 +1,9 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{% block sonata_top_nav_menu %}
+    {{ parent() }}
+
+    <div class="language-switcher" style="margin-left: 20px;">
+        {% include 'admin/_language_switcher.html.twig' %}
+    </div>
+{% endblock %}

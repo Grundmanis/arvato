@@ -16,20 +16,32 @@ final class ProductReviewAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         $filter
-            ->add('id')
-            ->add('rating')
-            ->add('comment')
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add('id', null, [
+                'label' => 'productReview.field.id',
+            ])
+            ->add('rating', null, [
+                'label' => 'productReview.field.rating',
+            ])
+            ->add('comment', null, [
+                'label' => 'productReview.field.comment',
+            ])
+            ->add('createdAt', null, [
+                'label' => 'productReview.field.created_at',
+            ])
+            ->add('updatedAt', null, [
+                'label' => 'productReview.field.updated_at',
+            ])
         ;
     }
 
     protected function configureListFields(ListMapper $list): void
     {
         $list
-            ->add('id')
+            ->add('id', null, [
+                'label' => 'productReview.field.id',
+            ])
             ->add('product', null, [
-                'label' => 'Product',
+                'label' => 'productReview.field.product',
                 'associated_property' => 'name',
                 'sortable' => true,
                 'route' => [
@@ -37,11 +49,20 @@ final class ProductReviewAdmin extends AbstractAdmin
                     'parameters' => ['id' => 'id'],
                 ],
             ])
-            ->add('rating')
-            ->add('comment')
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add('rating', null, [
+                'label' => 'productReview.field.rating',
+            ])
+            ->add('comment', null, [
+                'label' => 'productReview.field.comment',
+            ])
+            ->add('createdAt', null, [
+                'label' => 'productReview.field.created_at',
+            ])
+            ->add('updatedAt', null, [
+                'label' => 'productReview.field.updated_at',
+            ])
             ->add(ListMapper::NAME_ACTIONS, null, [
+                'label' => 'productReview.field.actions',
                 'actions' => [
                     'show' => [],
                     'edit' => [],
@@ -53,23 +74,29 @@ final class ProductReviewAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $isEdit = null !== $this->getSubject()->getId();
+
         $form
             ->add('product', ModelType::class, [
-                'label' => 'product_review.product',
+                'label' => 'productReview.field.product',
                 'property' => 'name',
                 'disabled' => $isEdit,
             ])
-            ->add('rating')
-            ->add('comment')
-        ;
+            ->add('rating', null, [
+                'label' => 'productReview.field.rating',
+            ])
+            ->add('comment', null, [
+                'label' => 'productReview.field.comment',
+            ]);;
     }
 
     protected function configureShowFields(ShowMapper $show): void
     {
         $show
-            ->add('id')
+            ->add('id', null, [
+                'label' => 'productReview.field.id',
+            ])
             ->add('product', null, [
-                'label' => 'Product',
+                'label' => 'productReview.field.product',
                 'associated_property' => 'name',
                 'sortable' => true,
                 'route' => [
@@ -77,10 +104,17 @@ final class ProductReviewAdmin extends AbstractAdmin
                     'parameters' => ['id' => 'id'],
                 ],
             ])
-            ->add('rating')
-            ->add('comment')
-            ->add('createdAt')
-            ->add('updatedAt')
-        ;
+            ->add('rating', null, [
+                'label' => 'productReview.field.rating',
+            ])
+            ->add('comment', null, [
+                'label' => 'productReview.field.comment',
+            ])
+            ->add('createdAt', null, [
+                'label' => 'productReview.field.created_at',
+            ])
+            ->add('updatedAt', null, [
+                'label' => 'productReview.field.updated_at',
+            ]);
     }
 }

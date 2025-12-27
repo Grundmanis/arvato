@@ -9,3 +9,13 @@ product:
     public_id: Publiskais ID
     created_at: Izveidots
     updated_at: Atjaunināts
+    actions: Darbibas
+productReview:
+    field:
+        id: "ID"
+        product: "Produkts"
+        rating: "Vērtējums"
+        comment: "Komentārs"
+        created_at: "Izveidots"
+        updated_at: "Atjaunināts"
+        actions: Darbibas

@@ -1,0 +1,9 @@
+{% if object.images is not empty %}
+    <div class="product-images">
+        {% for image in object.images %}
+            <img src="{{ image.url }}" alt="Image {{ loop.index }}" style="max-height: 100px; margin-right: 10px;">
+        {% endfor %}
+    </div>
+{% else %}
+    <span>No images</span>
+{% endif %}

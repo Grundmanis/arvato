@@ -12,6 +12,14 @@
         {% endblock %}
     </head>
     <body>
+    
+        {% block sonata_top_nav %}
+            {{ parent() }}
+            <div class="language-switcher" style="margin-left: 20px;">
+                {% include 'admin/_language_switcher.html.twig' %}
+            </div>
+        {% endblock %}
+
         {% block body %}{% endblock %}
     </body>
 </html>

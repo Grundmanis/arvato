@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Admin;
 
+use App\Form\ProductImageType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\Form\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 final class ProductAdmin extends AbstractAdmin
 {
@@ -22,16 +24,10 @@ final class ProductAdmin extends AbstractAdmin
 
     protected function configureDatagridFilters(DatagridMapper $filter): void
     {
-        // $filter
-        //     ->add('id')
-        //     ->add('name')
-        //     ->add('category')
-        //     ->add('price')
-        //     ->add('quantity')
-        //     ->add('publicId')
-        //     ->add('createdAt')
-        //     ->add('updatedAt')
         $filter
+            ->add('id', null, [
+                'label' => 'product.field.id',
+            ])
             ->add('name', null, [
                 'label' => 'product.field.name',
             ])
@@ -43,6 +39,15 @@ final class ProductAdmin extends AbstractAdmin
             ])
             ->add('quantity', null, [
                 'label' => 'product.field.quantity',
+            ])
+            ->add('publicId', null, [
+                'label' => 'product.field.publicId',
+            ])
+            ->add('createdAt', null, [
+                'label' => 'product.field.createdAt',
+            ])
+            ->add('updatedAt', null, [
+                'label' => 'product.field.updatedAt',
             ]);
     }
 
@@ -77,26 +82,13 @@ final class ProductAdmin extends AbstractAdmin
                 'label' => 'product.field.updated_at',
             ])
             ->add(ListMapper::NAME_ACTIONS, null, [
+                'label' => 'product.field.actions',
                 'actions' => [
                     'show' => [],
                     'edit' => [],
                     'delete' => [],
                 ],
             ]);
-
-        // $list
-        //     ->add('id')
-        //     ->add('name')
-        //     ->add('category')
-        //     ->add('price')
-        //     ->add('inStock', FieldDescriptionInterface::TYPE_BOOLEAN, [
-        //         'label' => 'In stock',
-        //     ])
-        //     ->add('quantity')
-        //     ->add('publicId')
-        //     ->add('createdAt')
-        //     ->add('updatedAt')
-
     }
 
     protected function configureFormFields(FormMapper $form): void
@@ -108,48 +100,63 @@ final class ProductAdmin extends AbstractAdmin
             ->add('category', null, [
                 'label' => 'product.field.category',
             ])
-            ->add('price', null, [
+            ->add('price', NumberType::class, [
                 'label' => 'product.field.price',
+                'scale' => 2,
+                'html5' => true,
+                'required' => true,
             ])
             ->add('quantity', null, [
                 'label' => 'product.field.quantity',
             ])
+            ->add('publicId', null, [
+                'label' => 'product.public_id',
+                'disabled' => true,
+            ])
             ->add('images', CollectionType::class, [
-                'entry_type' => FileType::class,
+                'entry_type' => ProductImageType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
                 'required' => false,
-            ]);
-        // ->add('name')
-        // ->add('category')
-        // ->add('price', NumberType::class, [
-        //     'label' => 'Price',
-        //     'scale' => 2,
-        //     'html5' => true,
-        //     'required' => true,
-        // ])
-        // ->add('quantity')
-        // ->add('publicId', null, [
-        //     'label' => 'product.public_id',
-        //     'disabled' => true,
-        // ])
+            ])
+        ;
     }
 
     protected function configureShowFields(ShowMapper $show): void
     {
         $show
-            ->add('id')
-            ->add('name')
-            ->add('category')
-            ->add('price')
-            ->add('inStock', FieldDescriptionInterface::TYPE_BOOLEAN, [
-                'label' => 'In stock',
+            ->add('id', null, [
+                'label' => 'product.field.id',
             ])
-            ->add('quantity')
-            ->add('publicId')
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add('name', null, [
+                'label' => 'product.field.name',
+            ])
+            ->add('category', null, [
+                'label' => 'product.field.category',
+            ])
+            ->add('price', null, [
+                'label' => 'product.field.price',
+            ])
+            ->add('inStock', FieldDescriptionInterface::TYPE_BOOLEAN, [
+                'label' => 'product.field.inStock',
+            ])
+            ->add('quantity', null, [
+                'label' => 'product.field.quantity',
+            ])
+            ->add('publicId', null, [
+                'label' => 'product.field.publicId',
+            ])
+            ->add('createdAt', null, [
+                'label' => 'product.field.createdAt',
+            ])
+            ->add('updatedAt', null, [
+                'label' => 'product.field.updatedAt',
+            ])
+            ->add('images', null, [
+                'label' => 'product.field.images',
+                'template' => 'admin/product/show_images.html.twig',
+            ])
         ;
     }
 }

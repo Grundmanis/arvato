@@ -11,3 +11,6 @@ controllers:
     resource: routing.controllers
 api_login_check:
     path: /api/login_check
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /admin

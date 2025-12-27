@@ -7,6 +7,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    locale: en
 
 services:
     # default configuration for services in *this* file
@@ -42,3 +43,6 @@ services:
     App\Doctrine\Extension\SortRatingExtension:
         tags:
             - { name: 'api_platform.doctrine.orm.query_extension.collection' }
+    App\EventListener\LocaleSubscriber:
+        tags:
+            - { name: 'kernel.event_subscriber' }
