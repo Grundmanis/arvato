@@ -17,6 +17,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 // TODO: add apiResource for filtelrs
 #[ApiResource(
@@ -57,11 +58,14 @@ class Product
 
     #[ORM\Column(length: 255)]
     #[Groups(['product:read', 'product:write'])]
+    #[Assert\NotBlank(message: "Category is required.")]
     // should be a separate Category entity
     private ?string $category = null;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     #[Groups(['product:read', 'product:write'])]
+    #[Assert\NotBlank(message: "Price is required.")]
+    #[Assert\Type(type: 'numeric', message: "Price must be a number.")]
     private ?string $price = null;
 
     #[ORM\Column(nullable: true)]

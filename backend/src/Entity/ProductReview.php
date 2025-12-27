@@ -13,6 +13,8 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Metadata\ApiProperty;
 
 #[ApiResource(
     cacheHeaders: [
@@ -27,7 +29,6 @@ use Symfony\Component\Serializer\Attribute\Groups;
         new Get(),
         new GetCollection(),
         new Post(),
-        new Put(),
         new Patch(),
         new Delete(),
     ]
@@ -45,6 +46,7 @@ class ProductReview
     #[ORM\ManyToOne(targetEntity: Product::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     #[Groups(['productReview:read'])]
+    #[ApiProperty(writable: false)]
     private Product $product;
 
     #[ORM\Column]
@@ -128,7 +130,7 @@ class ProductReview
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
