@@ -11,10 +11,6 @@ use Psr\Log\LoggerInterface;
 
 class SortInStockExtension implements QueryCollectionExtensionInterface
 {
-    public function __construct(private LoggerInterface $logger)
-    {
-    }
-
     public function applyToCollection(
         QueryBuilder $qb,
         QueryNameGeneratorInterface $queryNameGenerator,

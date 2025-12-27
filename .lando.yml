@@ -15,7 +15,7 @@ services:
   front:
     type: node:24
     ssl: false # not needed?
-    scanner: false # ? 
+    scanner: false
     port: 3000
     build:
       - cd frontend && npm install
