@@ -90,21 +90,23 @@ export default function Home() {
         )}
       </div>
 
-      <div className="mt-5 flex justify-center">
-        <PaginationButtons
-          currentPage={page}
-          totalItems={totalProductCount}
-          perPage={perPage}
-          onPageChange={setPage}
-        />
-        <Dropdown
-          options={perPages}
-          size="small"
-          onSelect={(value) => setPerPage(Number(value))}
-          placeholder={`${perPage} per page`}
-          className="ml-2"
-        />
-      </div>
+      {!loading && (
+        <div className="mt-5 flex justify-center">
+          <PaginationButtons
+            currentPage={page}
+            totalItems={totalProductCount}
+            perPage={perPage}
+            onPageChange={setPage}
+          />
+          <Dropdown
+            options={perPages}
+            size="small"
+            onSelect={(value) => setPerPage(Number(value))}
+            placeholder={`${perPage} per page`}
+            className="ml-2"
+          />
+        </div>
+      )}
     </div>
   );
 }

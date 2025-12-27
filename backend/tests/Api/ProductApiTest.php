@@ -38,7 +38,7 @@ class ProductApiTest extends ApiTestCase
 
         $this->product = static::getContainer()
             ->get(ProductRepository::class)
-            ->findAll()[0];
+            ->findOneBy(['quantity' => ['gt' => 1]]);
     }
 
     protected function tearDown(): void
@@ -86,6 +86,7 @@ class ProductApiTest extends ApiTestCase
         self::assertIsArray($data);
         self::assertArrayHasKey('id', $data);
         self::assertSame($this->product->getId(), $data['id']);
+        self::assertSame($this->product->isInStock(), true);
     }
 
     // TODO: test deletee what doesnt exist

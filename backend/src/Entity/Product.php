@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
@@ -19,13 +20,12 @@ use ApiPlatform\Metadata\Put;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-// TODO: add apiResource for filtelrs
 #[ApiResource(
-    cacheHeaders: [
-        'max_age' => 3600,        // cache in browser
-        'shared_max_age' => 3600, // cache for reverse proxy
-        'vary' => ['Authorization'], // vary cache based on Authorization header
-    ],
+    // cacheHeaders: [
+    //     'max_age' => 3600,        // cache in browser
+    //     'shared_max_age' => 3600, // cache for reverse proxy
+    //     'vary' => ['Authorization'], // vary cache based on Authorization header
+    // ],
     order: ['createdAt' => 'DESC'],
     normalizationContext: ['groups' => ['product:read']],
     denormalizationContext: ['groups' => ['product:write']],
@@ -42,6 +42,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     'name' => 'partial',
     'category' => 'exact',
 ])]
+
+#[ApiFilter(OrderFilter::class, properties: ['quantity', 'price', 'category', 'name', 'id', 'rating', 'inStock'])]
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Product
@@ -54,6 +56,7 @@ class Product
 
     #[ORM\Column(length: 255)]
     #[Groups(['product:read', 'product:write'])]
+    #[Assert\NotBlank(message: "Name is required.")]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
@@ -122,6 +125,8 @@ class Product
         return $this->id;
     }
 
+
+    #[Groups(['product:read'])]
     public function getRating(): float
     {
         if ($this->reviews->isEmpty()) {
@@ -169,6 +174,7 @@ class Product
         return $this;
     }
 
+    #[Groups(['product:read'])]
     public function isInStock(): ?bool
     {
         return $this->quantity > 0;
@@ -196,6 +202,8 @@ class Product
         return $this->images;
     }
 
+
+    #[Groups(['product:read'])]
     public function getMainImage(): ?ProductImage
     {
         if (!$this->images->isEmpty()) {

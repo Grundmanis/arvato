@@ -52,6 +52,6 @@ export const defaultInitState: ProductState = {
   totalProductCount: 0,
   sort: [],
   currentProduct: undefined,
-  loading: false,
+  loading: true,
   error: null,
 };

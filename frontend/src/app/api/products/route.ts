@@ -14,6 +14,7 @@ export async function GET(request: Request) {
 
     const queryString = searchParams.toString();
     const url = `${process.env.API_URL}/api/products${queryString ? `?${queryString}` : ''}`;
+    console.log({ url });
 
     const res = await fetch(url, {
       headers: {

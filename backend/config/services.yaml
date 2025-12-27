@@ -36,3 +36,9 @@ services:
             $imageUrlGenerator: '@App\Service\ImageUrlGenerator'
         tags:
             - { name: 'serializer.normalizer' }
+    App\Doctrine\Extension\SortInStockExtension:
+        tags:
+            - { name: 'api_platform.doctrine.orm.query_extension.collection' }
+    App\Doctrine\Extension\SortRatingExtension:
+        tags:
+            - { name: 'api_platform.doctrine.orm.query_extension.collection' }
