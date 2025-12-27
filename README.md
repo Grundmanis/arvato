@@ -25,11 +25,10 @@ https://docs.lando.dev/getting-started/installation.html
 `lando php bin/console doctrine:fixtures:load`
 
 
-# Run backend tests:
+## Run backend tests:
 `lando php bin/phpunit`
 
-
-# Api docs:
+## Api docs:
 Open: http://arvato.lndo.site/api/docs 
 
 Use login_check request:
@@ -38,7 +37,7 @@ username: api@local.test
 password: secret
 ```
 
-# PHP CS FIXER:
+## PHP CS FIXER:
 To check the code:
 `lando php ./vendor/bin/php-cs-fixer check`
 
