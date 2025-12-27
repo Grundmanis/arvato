@@ -61,25 +61,25 @@ class ProductReview
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     #[Groups(['productReview:read'])]
-    private ?\DateTimeImmutable $updatedAt = null;
+    private ?\DateTime $updatedAt = null;
 
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTime();
     }
 
     #[ORM\PrePersist]
     public function onPrePersist(): void
     {
         $this->createdAt ??= new \DateTimeImmutable();
-        $this->updatedAt ??= new \DateTimeImmutable();
+        $this->updatedAt ??= new \DateTime();
     }
 
     #[ORM\PreUpdate]
     public function onPreUpdate(): void
     {
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int

@@ -3,6 +3,9 @@ recipe: symfony
 config:
   webroot: backend/public
 services:
+  appserver:
+    build:
+      - cd backend && composer install
   database:
     type: mysql:8.0
     creds:
@@ -15,7 +18,7 @@ services:
     scanner: false # ? 
     port: 3000
     build:
-      - npm install
+      - cd frontend && npm install
     command: cd frontend && npm run dev
 tooling:
   npm:

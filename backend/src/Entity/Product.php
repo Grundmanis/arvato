@@ -57,6 +57,7 @@ class Product
 
     #[ORM\Column(length: 255)]
     #[Groups(['product:read', 'product:write'])]
+    // should be a separate Category entity
     private ?string $category = null;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
